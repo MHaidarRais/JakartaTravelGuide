@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 public class detailActivity extends AppCompatActivity {
 
     TextView txtDetailNamaWisata;
-    ImageView imgSnapshot;
+    ImageView imgSnapshot,detailGambar;
 
     private static  String BASE_URL = "https://maps.googleapis.com/maps/api/staticmap?center=";
     private static String END_URL = "&zoom=15&size=1000x500&maptype=hybrid&markers=color:red%7C";
@@ -23,7 +23,9 @@ public class detailActivity extends AppCompatActivity {
 
         txtDetailNamaWisata = findViewById(R.id.detailTempatWisata);
         imgSnapshot = findViewById(R.id.snapshotMaps);
+        detailGambar = findViewById(R.id.detailGambar);
         String NAMALOKASI = getIntent().getStringExtra("NamaLokasi");
+        String GambarNya = getIntent().getStringExtra("Gambarnya");
         final Double Latitudenya = getIntent().getDoubleExtra("Latitudenya",0);
         final Double Longitudenya = getIntent().getDoubleExtra("Longitudenya",0);
 
@@ -34,6 +36,11 @@ public class detailActivity extends AppCompatActivity {
                 .load(BASE_URL+Latitudenya+""+Longitudenya +END_URL+Latitudenya+""+Longitudenya)
                 .fitCenter()
                 .into(imgSnapshot);
+
+        Glide.with(this)
+                .load(GambarNya)
+                .fitCenter()
+                .into(detailGambar);
 
         imgSnapshot.setOnClickListener(new View.OnClickListener() {
             @Override
